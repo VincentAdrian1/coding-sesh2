@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Failed to update the record.";
     }
+    header("Location: town.view.php");
 }
 ?>
 <!DOCTYPE html>

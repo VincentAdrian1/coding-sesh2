@@ -15,5 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     } else {
         echo "Failed to delete the record.";
     }
+    header("Location: town.view.php");
 }
 ?>

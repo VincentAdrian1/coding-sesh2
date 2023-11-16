@@ -10,7 +10,6 @@ include_once("../province.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [    
-    'id' => $_POST['id'],
     'name' => $_POST['name'],
     ];
 
@@ -24,20 +23,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Retrieve student details from the form
         $town_city = [
-            'id' => $id, // Use the obtained student ID
+                // Use the obtained student ID
             'name' => $_POST['name'],
             // Other student details fields
         ];
 
         
-        if ($results->create($town_city)) {
+        if ($results) {
             echo "Record inserted successfully.";
         } else {
             echo "Failed to insert the record.";
         }
     }
 
-    
+    header("Location: town.view.php");
 }
 ?>
 
