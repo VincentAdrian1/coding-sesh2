@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Failed to update the record.";
     }
+    header("Location: students.view.php");
 }
 ?>
 <!DOCTYPE html>
@@ -72,7 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="last_name" id="last_name" value="<?php echo $studentData['last_name']; ?>">
         
         <label for="gender">Gender:</label>
-        <input type="text" name="gender" id="gender" value="<?php echo $studentData['gender']; ?>">
+        <select name="gender" id="gender">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+        <!-- <input type="text" name="gender" id="gender" value="<?php echo $studentData['gender']; ?>"> -->
         
         <label for="birthday">Birthdate:</label>
         <input type="text" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">

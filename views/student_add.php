@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Failed to insert the record.";
         }
     }
+    header("Location: students.view.php");
 
     
 }
