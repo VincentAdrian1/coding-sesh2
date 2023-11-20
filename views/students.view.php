@@ -1,10 +1,15 @@
 <?php
 include_once("../db.php");
 include_once("../student.php");
+include_once("../student_details.php");
 
 $db = new Database();
 $connection = $db->getConnection();
 $student = new Student($db);
+
+$data = new Database();
+$connection = $data->getConnection();
+$student_detail = new StudentDetails($data);
 
 ?>
 <!DOCTYPE html>
@@ -64,6 +69,45 @@ $student = new Student($db);
         
     <a class="button-link" href="student_add.php">Add New Record</a>
 
+        </div>
+
+        <div class="content">
+    <h2>Student Details</h2>
+    <table class="orange-theme">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Contact Number</th>
+                <th>Street</th>
+                <th>Town City</th>
+                <th>Province</th>
+                <th>Zip Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- You'll need to dynamically generate these rows with data from your database -->
+       
+            
+            
+            <?php
+            $results = $student_detail->displayAll(); 
+            foreach ($results as $result) {
+            ?>
+            <tr>
+                <td><?php echo $result['id']; ?></td>
+                <td><?php echo $result['student_id']; ?></td>
+                <td><?php echo $result['contact_number']; ?></td>
+                <td><?php echo $result['street']; ?></td>
+                <td><?php echo $result['town_city']; ?></td>
+                <td><?php echo $result['province']; ?></td>
+                <td><?php echo $result['zip_code']; ?></td>
+            </tr>
+        <?php } ?>
+
+           
+        </tbody>
+    </table>
         </div>
         
         <!-- Include the header -->
