@@ -1,7 +1,11 @@
 <?php
 include_once("../db.php"); // Include the Database class file
-include_once("../student.php"); // Include the Student class file
+include_once("../student.php");
+include_once("../student_details.php"); // Include the Student class file
+include_once("../town_city.php");
+include_once("../province.php"); // Include the Student class file
 
+// student edit part
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -41,6 +45,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     header("Location: students.view.php");
 }
+// student edit end
+
+// Student details part
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // Fetch student data by ID from the database
+    $db = new Database();
+    $studentdetails = new StudentDetails($db);
+    $studentDet = $studentdetails->read($id); // Implement the read method in the Student class
+
+    if ($studentDet) {
+        // The student data is retrieved, and you can pre-fill the edit form with this data.
+    } else {
+        echo "Student detail not found.";
+    }
+} else {
+    echo "Student ID not provided.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = [
+        'id' => $_POST['id'],
+        'student_id' => $_POST['student_id'],
+        'contact_number' => $_POST['contact_number'],
+        'street' => $_POST['street'],
+        'town_city' => $_POST['town_city'],
+        'province' => $_POST['province'],
+        'zipcode' => $_POST['zip_code'],
+    ];
+
+    $db = new Database();
+    $studentdetails = new StudentDetails($db);
+
+    // Call the edit method to update the student data
+    if ($studentdetails->update($id, $data)) {
+        echo "Record updated successfully.";
+    } else {
+        echo "Failed to update the record.";
+    }
+    header("Location: students.view.php");
+}
+
+// student details end here
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,7 +129,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <label for="birthday">Birthdate:</label>
         <input type="text" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number" value="<?php echo $studentDet['contact_number']; ?>" required>
+
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street"  value="<?php echo $studentDet['street']; ?>" required>
+
+        <label for="town_city">Town / City:</label>
+        <select name="town_city" id="town_city" required>
+        <?php
+            $database = new Database();
+            $towns = new TownCity($database);
+            $results = $towns->getAll();
+            // echo print_r($results);
+            foreach($results as $result)
+            {
+                echo '<option value="' . $result['id'] . '">' . $result['name'] . '</option>';
+            }
+        ?>      
+        </select>
+
+        <label for="province">Province:</label>
+        <select name="province" id="province" required>
+        <?php
+
+            $database = new Database();
+            $provinces = new Province($database);
+            $results = $provinces->getAll();
+            // echo print_r($results);
+            foreach($results as $result)
+            {
+                echo '<option value="' . $result['id'] . '">' . $result['name'] . '</option>';
+            }
+        ?>  
+        </select>    
+
+        <label for="zip_code">Zip Code:</label>
+        <input type="text" id="zip_code" name="zip_code" value="<?php echo $studentDet['zip_code']; ?>" required>
         
+
         <input type="submit" value="Update">
     </form>
     </div>
