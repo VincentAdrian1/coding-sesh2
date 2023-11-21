@@ -44,6 +44,7 @@ body {
     color: #333; /* Text color */
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
 /* Header */
@@ -227,4 +228,49 @@ footer {
 /* Change font color for links on hover */
 .footer-links a:hover {
     color: #74C69D;
+}
+
+/* search bar style */
+.search-container {
+    width: 30%;
+    height: auto;
+    display: inline-block;
+    align-items: center;
+  }
+
+  .search-bar {
+    margin-right: 10px;
+    padding:  5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .search-button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* dashboard */
+
+  .dashboard-title {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 50px;
+    font-size: 64px; 
+    font-weight: bold; 
+    text-align: left; 
+    margin-bottom: 20px; 
+  }
+
+.col-md-5 {
+    display: flex;
+    align-items: left;
+    text-align: left;
+}
+.content{
+   display: inline-block;
 }
