@@ -43,7 +43,7 @@ class StudentDetails {
         try {
             $connection = $this->db->getConnection();
 
-            $sql = "SELECT * FROM student_details WHERE id = :id";
+            $sql = "SELECT * FROM student_details WHERE student_id = :id";
             $stmt = $connection->prepare($sql);
             $stmt->bindValue(':id', $id);
             $stmt->execute();
@@ -62,23 +62,22 @@ class StudentDetails {
     public function update($id, $data) {
         try {
             $sql = "UPDATE student_details SET
-                    student_id = :student_id,
+                    student_id = :id,
                     contact_number = :contact_number,
                     street = :street,
                     town_city = :town_city,
                     province = :province,
-                    zipcode = :zipcode
-                    WHERE id = :id";
+                    zip_code = :zip_code
+                    WHERE student_id = :id";
 
             $stmt = $this->db->getConnection()->prepare($sql);
             // Bind parameters
             $stmt->bindValue(':id', $data['id']);
-            $stmt->bindValue(':student_id', $data['student_id']);
             $stmt->bindValue(':contact_number', $data['contact_number']);
             $stmt->bindValue(':street', $data['street']);
             $stmt->bindValue(':town_city', $data['town_city']);
             $stmt->bindValue(':province', $data['province']);
-            $stmt->bindValue(':zipcode', $data['zipcode']);
+            $stmt->bindValue(':zip_code', $data['zip_code']);
 
             // Execute the query
             $stmt->execute();

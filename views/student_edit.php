@@ -12,7 +12,9 @@ if (isset($_GET['id'])) {
     // Fetch student data by ID from the database
     $db = new Database();
     $student = new Student($db);
+    $student_details = new StudentDetails($db);
     $studentData = $student->read($id); // Implement the read method in the Student class
+    $studentDet_data = $student_details->read($id);
 
     if ($studentData) {
         // The student data is retrieved, and you can pre-fill the edit form with this data.
@@ -32,63 +34,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => $_POST['last_name'],
         'gender' => $_POST['gender'],
         'birthday' => $_POST['birthday'],
-    ];
-
-    $db = new Database();
-    $student = new Student($db);
-
-    // Call the edit method to update the student data
-    if ($student->update($id, $data)) {
-        echo "Record updated successfully.";
-    } else {
-        echo "Failed to update the record.";
-    }
-    header("Location: students.view.php");
-}
-// student edit end
-
-// Student details part
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Fetch student data by ID from the database
-    $db = new Database();
-    $studentdetails = new StudentDetails($db);
-    $studentDet = $studentdetails->read($id); // Implement the read method in the Student class
-
-    if ($studentDet) {
-        // The student data is retrieved, and you can pre-fill the edit form with this data.
-    } else {
-        echo "Student detail not found.";
-    }
-} else {
-    echo "Student ID not provided.";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = [
-        'id' => $_POST['id'],
-        'student_id' => $_POST['student_id'],
         'contact_number' => $_POST['contact_number'],
         'street' => $_POST['street'],
         'town_city' => $_POST['town_city'],
         'province' => $_POST['province'],
-        'zipcode' => $_POST['zip_code'],
+        'zip_code' => $_POST['zip_code']
     ];
 
     $db = new Database();
-    $studentdetails = new StudentDetails($db);
+    $student = new Student($db);
+    $student_details = new StudentDetails($db);
 
     // Call the edit method to update the student data
-    if ($studentdetails->update($id, $data)) {
+    if ($student->update($id, $data) or $student_details->update($id,$data)) {
         echo "Record updated successfully.";
+        header("Location: students.view.php");
     } else {
         echo "Failed to update the record.";
     }
-    header("Location: students.view.php");
+    
 }
+// student edit end
 
-// student details end here
 ?>
 <!DOCTYPE html>
 <html>
@@ -125,16 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="0">Male</option>
             <option value="1">Female</option>
         </select>
-        <!-- <input type="text" name="gender" id="gender" value="<?php echo $studentData['gender']; ?>"> -->
         
         <label for="birthday">Birthdate:</label>
-        <input type="text" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">
+        <input type="date" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">
 
         <label for="contact_number">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number" value="<?php echo $studentDet['contact_number']; ?>" required>
+        <input type="text" id="contact_number" name="contact_number" value="<?php echo $studentDet_data['contact_number']; ?>" required>
 
         <label for="street">Street:</label>
-        <input type="text" id="street" name="street"  value="<?php echo $studentDet['street']; ?>" required>
+        <input type="text" id="street" name="street"  value="<?php echo $studentDet_data['street']; ?>" required>
 
         <label for="town_city">Town / City:</label>
         <select name="town_city" id="town_city" required>
@@ -166,12 +132,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>    
 
         <label for="zip_code">Zip Code:</label>
-        <input type="text" id="zip_code" name="zip_code" value="<?php echo $studentDet['zip_code']; ?>" required>
+        <input type="text" id="zip_code" name="zip_code" value="<?php echo $studentDet_data['zip_code']; ?>" required>
         
 
         <input type="submit" value="Update">
     </form>
     </div>
-    <?php include('../templates/footer.html'); ?>
+
 </body>
 </html>

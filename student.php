@@ -61,13 +61,13 @@ class Student {
     public function update($id, $data) {
         try {
             $sql = "UPDATE students SET
-                    student_number = :student_number,
-                    first_name = :first_name,
-                    middle_name = :middle_name,
-                    last_name = :last_name,
-                    gender = :gender,
-                    birthday = :birthday
-                    WHERE id = :id";
+            student_number = :student_number,
+            first_name = :first_name,
+            middle_name = :middle_name,
+            last_name = :last_name,
+            gender = :gender,
+            birthday = :birthday
+            WHERE id = :id";
 
             $stmt = $this->db->getConnection()->prepare($sql);
             // Bind parameters
@@ -110,7 +110,9 @@ class Student {
 
     public function displayAll(){
         try {
-            $sql = "SELECT * FROM students LIMIT 10"; // Modify the table name to match your database
+            $sql = "SELECT students.id, student_number, first_name, last_name, middle_name, gender, date_format(birthday,'%M %e %Y') as birthday, contact_number, 
+                    street, town_city, province, zip_code 
+                    FROM students inner join student_details on students.id = student_details.student_id LIMIT 10"; // Modify the table name to match your database
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

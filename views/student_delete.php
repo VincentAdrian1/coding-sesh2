@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $student_det = new StudentDetails($db);
 
     // Call the delete method to delete the student record
-    if ($student->delete($id) && $student_det->delete($id)) {
+    if ($student->delete($id) and $student_det->delete($id)) {
         echo "Record deleted successfully.";
     } else {
         echo "Failed to delete the record.";
@@ -20,4 +20,5 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     header("Location: students.view.php");
 
 }
+
 ?>

@@ -36,6 +36,11 @@ $student_detail = new StudentDetails($data);
                 <th>Last Name</th>
                 <th>Gender</th>
                 <th>Birthdate</th>
+                <th>Contact Number</th>
+                <th>Street</th>
+                <th>Town City</th>
+                <th>Province</th>
+                <th>Zip Code</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -45,7 +50,7 @@ $student_detail = new StudentDetails($data);
             
             
             <?php
-            $results = $student->displayAll(); 
+            $results = $student->displayAll();
             foreach ($results as $result) {
             ?>
             <tr>
@@ -59,59 +64,29 @@ $student_detail = new StudentDetails($data);
                     echo "F";
                         }?></td>
                 <td><?php echo $result['birthday']; ?></td>
+                <td><?php echo $result['contact_number']; ?></td>
+                <td><?php echo $result['street']; ?></td>
+                <td><?php echo $result['town_city']; ?></td>
+                <td><?php echo $result['province']; ?></td>
+                <td><?php echo $result['zip_code']; ?></td>
                 <td>
                     <a href="student_edit.php?id=<?php echo $result['id']; ?>">Edit</a>
                     |
                     <a href="student_delete.php?id=<?php echo $result['id']; ?>">Delete</a>
                 </td>
-            </tr>
-        <?php } ?>
+                <?php } ?>
 
+
+
+                
+            </tr>
+            
            
         </tbody>
     </table>
         
     <a class="button-link" href="student_add.php">Add New Record</a>
 
-        </div>
-
-        <div class="content">
-    <h2>Student Details</h2>
-    <table class="orange-theme">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Student ID</th>
-                <th>Contact Number</th>
-                <th>Street</th>
-                <th>Town City</th>
-                <th>Province</th>
-                <th>Zip Code</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- You'll need to dynamically generate these rows with data from your database -->
-       
-            
-            
-            <?php
-            $results = $student_detail->displayAll(); 
-            foreach ($results as $result) {
-            ?>
-            <tr>
-                <td><?php echo $result['id']; ?></td>
-                <td><?php echo $result['student_id']; ?></td>
-                <td><?php echo $result['contact_number']; ?></td>
-                <td><?php echo $result['street']; ?></td>
-                <td><?php echo $result['town_city']; ?></td>
-                <td><?php echo $result['province']; ?></td>
-                <td><?php echo $result['zip_code']; ?></td>
-            </tr>
-        <?php } ?>
-
-           
-        </tbody>
-    </table>
         </div>
         
         <!-- Include the header -->
