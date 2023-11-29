@@ -9,7 +9,7 @@ $student = new Student($db);
 
         define('DB_HOST', 'localhost');
         define('DB_USER', 'root');
-        define('DB_PASS', '09102001nico');
+        define('DB_PASS', 'rejaas070300');
         define('DB_NAME', 'school_db');
 
 

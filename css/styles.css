@@ -272,5 +272,15 @@ footer {
     text-align: left;
 }
 .content{
-   display: inline-block;
-}
+    display: inline-block;
+ }
+ div.para p{
+     text-align: justify;
+     width: 500px;
+     height: 450px;
+ }
+ 
+ div.figures{
+     display: inline-block;
+     text-align: center;
+ }
